@@ -212,6 +212,7 @@ async function cargarHistorial() {
       const btnEliminar = document.createElement("button");
       btnEliminar.id = "btn-eliminar";
       btnEliminar.textContent = "Eliminar";
+      btnEliminar.classList.add(`btndel${btnContador}`)
       btnEliminar.addEventListener("click", () => eliminarTurno(turno._id));
       const btnModificar = document.createElement("button");
       btnModificar.textContent = "Modificar";
