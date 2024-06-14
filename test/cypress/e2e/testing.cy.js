@@ -17,12 +17,12 @@ describe("Testeando gestion de turnos en Render", () => {
     cy.get(".flatpickr-next-month").find("svg").click();
     cy.contains(".flatpickr-day", 1).click();
     cy.get("#profesionales").select("Marcela Balcarce");
-
+    //Cambiar fecha
     //Agregar guardar cambios
   });
   it("Eliminar un turno", () => {
     cy.visit("https://gestiondeturnos.onrender.com/");
     cy.contains("a", "Mis turnos").click();
-    cy.get("#btn-eliminar");
+    cy.get(".btndel0").click();
   });
 });
