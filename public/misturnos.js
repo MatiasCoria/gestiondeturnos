@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:3000";
+const apiUrl = "https://gestiondeturnos.onrender.com";
 const turnoContainer = document.getElementById("tbody-container");
 const especialidades = document.getElementById("especialidades");
 const formulario = document.getElementById("form_select2");
