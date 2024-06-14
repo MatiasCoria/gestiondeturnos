@@ -1,4 +1,4 @@
-const apiUrl = "https://localhost:3000";
+const apiUrl = "https://gestiondeturnos.onrender.com";
 const turnoContainer = document.getElementById("tbody-container");
 const especialidades = document.getElementById("especialidades");
 const formulario = document.getElementById("form_select2");
@@ -11,7 +11,6 @@ const btn = document.getElementById("openModalBtn");
 const span = document.getElementsByClassName("close")[0];
 const modal = document.getElementById("modal-misturnos");
 
-let profesionalSubmit = "";
 let fechasOdontologia = [];
 let fechasTraumatologia = [];
 let fechasDermatologia = [];
