@@ -11,6 +11,7 @@ const btn = document.getElementById("openModalBtn");
 const span = document.getElementsByClassName("close")[0];
 const modal = document.getElementById("modal-misturnos");
 
+
 let fechasOdontologia = [];
 let fechasTraumatologia = [];
 let fechasDermatologia = [];
@@ -19,9 +20,10 @@ let profesionalesOdontologia = [];
 let profesionalesTraumatologia = [];
 let profesionalesDermatologia = [];
 let profesionalesRadiologia = [];
-let currentTurnoId = null;
-let currentEspecialidad = null;
-let currentEspecialidadTurnos = null;
+let actualTurnoId = null;
+let actualEspecialidad = null;
+let actualEspecialidadTurnos = null;
+let btnContador = 0; 
 
 async function cargarEspecialidades() {
   const response = await fetch(`${apiUrl}/especialidades`);
@@ -121,9 +123,9 @@ function actualizarProfesionalesYFechas(especialidad) {
 }
 
 async function modificarTurno(id, especialidadid, especialidadTurnos) {
-  currentTurnoId = id;
-  currentEspecialidad = especialidadid;
-  currentEspecialidadTurnos = especialidadTurnos;
+  actualTurnoId = id;
+  actualEspecialidad = especialidadid;
+  actualEspecialidadTurnos = especialidadTurnos;
 
   actualizarProfesionalesYFechas(especialidadTurnos);
 
@@ -136,8 +138,8 @@ async function modificarTurno(id, especialidadid, especialidadTurnos) {
 btnSubmit.addEventListener("click", async function (event) {
   event.preventDefault();
 
-  const especialidadElegida = currentEspecialidad;
-  const especialidad = currentEspecialidadTurnos;
+  const especialidadElegida = actualEspecialidad;
+  const especialidad = actualEspecialidadTurnos;
   const fechaSelect = datepicker.value;
   const profesional = profesionales.value;
   const fecha = convertirFechaFormato(fechaSelect);
@@ -158,7 +160,7 @@ btnSubmit.addEventListener("click", async function (event) {
     document.getElementById("error_select5").style.display = "none";
     try {
       const response = await fetch(
-        `${apiUrl}/historial/${especialidadElegida}/${currentTurnoId}`,
+        `${apiUrl}/historial/${especialidadElegida}/${actualTurnoId}`,
         {
           method: "PUT",
           headers: {
@@ -194,6 +196,7 @@ async function cargarHistorial() {
     }
     const historial = await response.json();
     turnoContainer.innerHTML = "";
+    let btnContador = 0; 
     historial.forEach((turno) => {
       const fechaTurno = document.createElement("td");
       const nombreTurno = document.createElement("td");
@@ -213,6 +216,7 @@ async function cargarHistorial() {
       const btnModificar = document.createElement("button");
       btnModificar.textContent = "Modificar";
       btnModificar.classList.add(`btn-modificar`);
+      btnModificar.id = `btn${btnContador++}`;
       btnModificar.addEventListener("click", () =>
         modificarTurno(
           turno._id,
