@@ -1,4 +1,4 @@
-const apiUrl = "https://gestiondeturnos.onrender.com";
+const apiUrl = "https://localhost:3000";
 const turnoContainer = document.getElementById("tbody-container");
 const especialidades = document.getElementById("especialidades");
 const formulario = document.getElementById("form_select2");
@@ -20,42 +20,26 @@ let profesionalesOdontologia = [];
 let profesionalesTraumatologia = [];
 let profesionalesDermatologia = [];
 let profesionalesRadiologia = [];
-let prof1 = profesionalesOdontologia[0];
+let currentTurnoId = null;
+let currentEspecialidad = null;
+let currentEspecialidadTurnos = null;
+
 async function cargarEspecialidades() {
   const response = await fetch(`${apiUrl}/especialidades`);
   const especialidades = await response.json();
   for (let especialidad of especialidades) {
     if (especialidad.especialidad === "Odontologia") {
-      for (let fecha of especialidad.turnos) {
-        fechasOdontologia.push(fecha);
-      }
-      for (let profesional of especialidad.profesionales) {
-        profesionalesOdontologia.push(profesional);
-      }
-    }
-    if (especialidad.especialidad === "Traumatologia") {
-      for (let fecha of especialidad.turnos) {
-        fechasTraumatologia.push(fecha);
-      }
-      for (let profesional of especialidad.profesionales) {
-        profesionalesTraumatologia.push(profesional);
-      }
-    }
-    if (especialidad.especialidad === "Dermatologia") {
-      for (let fecha of especialidad.turnos) {
-        fechasDermatologia.push(fecha);
-      }
-      for (let profesional of especialidad.profesionales) {
-        profesionalesDermatologia.push(profesional);
-      }
-    }
-    if (especialidad.especialidad === "Radiologia") {
-      for (let fecha of especialidad.turnos) {
-        fechasRadiologia.push(fecha);
-      }
-      for (let profesional of especialidad.profesionales) {
-        profesionalesRadiologia.push(profesional);
-      }
+      fechasOdontologia.push(...especialidad.turnos);
+      profesionalesOdontologia.push(...especialidad.profesionales);
+    } else if (especialidad.especialidad === "Traumatologia") {
+      fechasTraumatologia.push(...especialidad.turnos);
+      profesionalesTraumatologia.push(...especialidad.profesionales);
+    } else if (especialidad.especialidad === "Dermatologia") {
+      fechasDermatologia.push(...especialidad.turnos);
+      profesionalesDermatologia.push(...especialidad.profesionales);
+    } else if (especialidad.especialidad === "Radiologia") {
+      fechasRadiologia.push(...especialidad.turnos);
+      profesionalesRadiologia.push(...especialidad.profesionales);
     }
   }
 }
@@ -64,15 +48,10 @@ cargarEspecialidades();
 function convertirFechas(fechas) {
   return fechas.map((fecha) => new Date(fecha));
 }
+
 function convertirFechaFormato(fecha) {
-  let partes = fecha.split("/");
-  let día = partes[0];
-  let mes = partes[1];
-  let año = partes[2];
-
-  let nuevaFecha = `${año}/${mes}/${día}`;
-
-  return nuevaFecha;
+  let [día, mes, año] = fecha.split("/");
+  return `${año}/${mes}/${día}`;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -84,13 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function convertirFecha(fecha) {
-  let partes = fecha.split("/");
-  let año = partes[0];
-  let mes = partes[1];
-  let día = partes[2];
-
-  let nuevaFecha = `${día}/${mes}/${año}`;
-  return nuevaFecha;
+  let [año, mes, día] = fecha.split("/");
+  return `${día}/${mes}/${año}`;
 }
 
 async function eliminarTurno(id) {
@@ -114,126 +88,102 @@ async function eliminarTurno(id) {
   }
 }
 
-async function modificarTurno(
-  id,
-  especialidadid,
-  especialidadTurnos
-) {
-  switch (especialidadTurnos) {
+function actualizarProfesionalesYFechas(especialidad) {
+  let profesionales = [];
+  let fechas = [];
+  switch (especialidad) {
     case "Odontologia":
-      profesional_1.textContent = profesionalesOdontologia[0];
-      profesional_1.style.display = "block";
-      profesional_2.textContent = profesionalesOdontologia[1];
-      profesional_2.style.display = "block";
-      datepicker.value = "";
-      flatpickr("#datepicker", {
-        enable: convertirFechas(fechasOdontologia),
-        locale: "es",
-        dateFormat: "j/n/Y",
-      });
+      profesionales = profesionalesOdontologia;
+      fechas = fechasOdontologia;
       break;
     case "Traumatologia":
-      profesional_1.textContent = profesionalesTraumatologia[0];
-      profesional_1.style.display = "block";
-      profesional_2.textContent = profesionalesTraumatologia[1];
-      profesional_2.style.display = "block";
-      datepicker.value = "";
-      flatpickr("#datepicker", {
-        enable: convertirFechas(fechasTraumatologia),
-        locale: "es",
-        dateFormat: "j/n/Y",
-      });
+      profesionales = profesionalesTraumatologia;
+      fechas = fechasTraumatologia;
       break;
     case "Dermatologia":
-      profesional_1.textContent = profesionalesDermatologia[0];
-      profesional_1.style.display = "block";
-      profesional_2.textContent = profesionalesDermatologia[1];
-      profesional_2.style.display = "block";
-      datepicker.value = "";
-      flatpickr("#datepicker", {
-        enable: convertirFechas(fechasDermatologia),
-        locale: "es",
-        dateFormat: "j/n/Y",
-      });
+      profesionales = profesionalesDermatologia;
+      fechas = fechasDermatologia;
       break;
     case "Radiologia":
-      profesional_1.textContent = profesionalesRadiologia[0];
-      profesional_1.style.display = "block";
-      profesional_2.textContent = profesionalesRadiologia[1];
-      profesional_2.style.display = "block";
-      datepicker.value = "";
-      flatpickr("#datepicker", {
-        enable: convertirFechas(fechasRadiologia),
-        locale: "es",
-        dateFormat: "j/n/Y",
-      });
-      break;
-    default:
-      profesional_1.style.display = "none";
-      profesional_2.style.display = "none";
-      profesional_1.textContent = "Seleccionar";
-      profesional_2.textContent = "Seleccionar";
-      datepicker.value = "";
-      flatpickr("#datepicker", {
-        enable: [new Date()],
-        locale: "es",
-        dateFormat: "j/n/Y",
-      });
+      profesionales = profesionalesRadiologia;
+      fechas = fechasRadiologia;
       break;
   }
-
-  btnSubmit.addEventListener("click", async function (event) {
-    event.preventDefault();
-    const especialidadElegida = especialidadid;
-    const especialidad = especialidadTurnos;
-    const fechaSelect = datepicker.value;
-    const profesional = profesionales.value;
-    const fecha = convertirFechaFormato(fechaSelect);
-    if (profesional == "Seleccionar") {
-      document.getElementById("error_select5").style.display = "block";
-    } else {
-      document.getElementById("error_select5").style.display = "none";
-    }
-    if (!fechaSelect) {
-      document.getElementById("error_select4").style.display = "block";
-    } else {
-      document.getElementById("error_select4").style.display = "none";
-    }
-    if (fechaSelect && profesional !== "Seleccionar") {
-      document.getElementById("error_select4").style.display = "none";
-      document.getElementById("error_select5").style.display = "none";
-      try {
-        const response = await fetch(
-          `${apiUrl}/historial/${especialidadElegida}/${id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ especialidad, fecha, profesional }),
-          }
-        );
-        const resultado = await response.json();
-        
-        btnSubmit.textContent = "Guardando turno..";
-        setTimeout(() => {
-          btnSubmit.textContent = "Turno guardado!";
-        }, 1500);
-        setTimeout(() => {
-          cargarHistorial();
-          modal.style.display = "none";
-        }, 2500);
-      } catch (error) {}
-    }
+  profesional_1.textContent = profesionales[0];
+  profesional_1.style.display = "block";
+  profesional_2.textContent = profesionales[1];
+  profesional_2.style.display = "block";
+  datepicker.value = "";
+  flatpickr("#datepicker", {
+    enable: convertirFechas(fechas),
+    locale: "es",
+    dateFormat: "j/n/Y",
   });
+}
+
+async function modificarTurno(id, especialidadid, especialidadTurnos) {
+  currentTurnoId = id;
+  currentEspecialidad = especialidadid;
+  currentEspecialidadTurnos = especialidadTurnos;
+
+  actualizarProfesionalesYFechas(especialidadTurnos);
+
   btnSubmit.textContent = "Guardar cambios";
   modal.style.display = "flex";
   modal.style.justifyContent = "center";
   modal.style.alignItems = "center";
 }
 
+btnSubmit.addEventListener("click", async function (event) {
+  event.preventDefault();
+
+  const especialidadElegida = currentEspecialidad;
+  const especialidad = currentEspecialidadTurnos;
+  const fechaSelect = datepicker.value;
+  const profesional = profesionales.value;
+  const fecha = convertirFechaFormato(fechaSelect);
+
+  if (profesional == "Seleccionar") {
+    document.getElementById("error_select5").style.display = "block";
+  } else {
+    document.getElementById("error_select5").style.display = "none";
+  }
+  if (!fechaSelect) {
+    document.getElementById("error_select4").style.display = "block";
+  } else {
+    document.getElementById("error_select4").style.display = "none";
+  }
+
+  if (fechaSelect && profesional !== "Seleccionar") {
+    document.getElementById("error_select4").style.display = "none";
+    document.getElementById("error_select5").style.display = "none";
+    try {
+      const response = await fetch(
+        `${apiUrl}/historial/${especialidadElegida}/${currentTurnoId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ especialidad, fecha, profesional }),
+        }
+      );
+
+      btnSubmit.textContent = "Guardando turno..";
+      setTimeout(() => {
+        btnSubmit.textContent = "Turno guardado!";
+      }, 1500);
+      setTimeout(() => {
+        cargarHistorial();
+        modal.style.display = "none";
+      }, 2500);
+    } catch (error) {
+      console.error("Error al modificar el turno:", error);
+    }
+  }
+});
+
 function cerrarModal() {
-  const modal = document.getElementById("modal-misturnos");
   modal.style.display = "none";
 }
 
