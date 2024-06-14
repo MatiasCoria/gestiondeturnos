@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body id="body">
+    <header id="header">
+      <nav class="nav-main">
+        <ul class="nav-bar">
+          <li class="titulo-container">
+            <a class="gestion-titulo" href="#"><img src="./images/logo.png"></a>
+          </li>
+          <li class="nav-link">
+            <a href="#">Reservar un turno</a>
+          </li>
+          <li class="nav-link">
+            <a href="misturnos.html">Mis turnos</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main">
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modalMessage">Turno reservado correctamente!</p>
+        </div>
+    </div>
+      <section id="inicio-section">
+        <div class="especialidades_container">
+          <h1 class="busqueda_turnos">Busqueda de turnos:</h1>
+          <div class="form_container">
+            <form id="form_select">
+              <div class="especialidad_container">
+                <div>
+                <h2 class="titulo_especialidad" href="#">
+                  Elige una especialidad
+                </h2>
+                <select id="especialidades" class="select_especialista">
+                  <option class="_seleccionar">Seleccionar</option>
+                  <option class="_odontologia" value="Odontologia">
+                    Odontologia
+                  </option>
+                  <option class="_traumatologia" value="Traumatologia">
+                    Traumatologia
+                  </option>
+                  <option class="_dermatologia" value="Dermatologia">
+                    Dermatologia
+                  </option>
+                  <option class="_radiologia" value="Radiologia">
+                    Radiologia
+                  </option>
+                </select>
+                <div id="error_select">
+                  Selecciona un turno*
+                </div>
+              </div>
+
+                <div class="input_container">
+                  <input
+                    type="text"
+                    id="datepicker"
+                    placeholder="Fechas disponibles"
+                    required
+                  />
+                  <div id="error_select3">
+                    Selecciona una fecha*
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h2 class="titulo_especialidad">Elige un profesional</h2>
+                <select id="profesionales" class="select_especialista">
+                  <option class="_seleccionar">Seleccionar</option>
+                  <option id="profesional_1"></option>
+                  <option id="profesional_2"></option>
+                </select>
+                <div id="error_select2">
+                  Selecciona un profesional*
+                </div>
+              </div>
+            </form>
+            <button type="submit" id="btn-submit">Reservar turno</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+  <script src="index.js"></script>
+</html>
+

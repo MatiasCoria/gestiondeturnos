@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header id="header">
+      <nav class="nav-main">
+        <ul class="nav-bar">
+          <li class="titulo-container">
+            <a class="gestion-titulo" href="#"><img src="./images/logo.png" /></a>
+          </li>
+          <li class="nav-link">
+            <a href="index.html">Reservar un turno</a>
+          </li>
+          <li class="nav-link">
+            <a href="misturnos.html">Mis turnos</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div id="modal-misturnos" class="modal-misturnos">
+      <div class="modal-content2">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h2>Modificación de Turno</h2>
+        <form id="form_select2">
+          <div class="especialidad_container2">
+            <div class="input_container2">
+              <h2>Selecciona otra fecha</h2>
+              <input
+                style="width: 180px; margin: 0; margin-top: 20px"
+                type="text"
+                id="datepicker"
+                placeholder="Fechas disponibles"
+                required
+              />
+              <div id="error_select4">Selecciona una fecha*</div>
+            </div>
+          </div>
+          <div>
+            <h2 class="titulo_especialidad2">Elige otro profesional</h2>
+            <select id="profesionales" class="select_especialista2">
+              <option class="_seleccionar">Seleccionar</option>
+              <option id="profesional_1"></option>
+              <option id="profesional_2"></option>
+            </select>
+            <div id="error_select5">Selecciona un profesional*</div>
+          </div>
+          <button type="submit" id="btn-submit2">Guardar cambios</button>
+        </form>
+      </div>
+    </div>
+    <main id="main">
+      <section id="misturnos-section">
+        <div id="misturnos-container">
+          <div class="titulo-misturnos">
+            <h1 class="busqueda_turnos">Mis turnos</h1>
+            <p class="proximos_turnos">Tus proximos turnos son:</p>
+          </div>
+          <div id="historial-container">
+            <table id="tabla-turnos">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Profesional</th>
+                  <th>Especialidad</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-container"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+  <script src="misturnos.js"></script>
+</html>

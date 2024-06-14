@@ -1,0 +1,471 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  scroll-behavior: smooth;
+}
+
+#body{
+  overflow:hidden;
+}
+/*Header*/
+
+#header {
+  width: 100%;
+  height: 60px;
+}
+
+.nav-main {
+  width: 100%;
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1e5d99;
+  position: fixed;
+  padding-left: 20px;
+}
+
+.nav-bar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  gap: 40px;
+}
+
+.nav-bar li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.nav-bar li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+  transition: color 0.3s ease;
+  font-weight:650;
+}
+
+.nav-bar li a:hover {
+  color: #c0bfbf;
+}
+
+.nav-link{
+  padding: 0px 10px;
+}
+
+.gestion-titulo {
+  text-decoration: none;
+  color: #fff;
+  font-size: 26px;
+  height: inherit;
+}
+
+
+.gestion-titulo img{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  padding:7px;
+}
+
+.titulo-container {
+  padding: 0px 8px;
+}
+
+/*Sections*/
+#inicio-section {
+  padding-top: 60px;
+  padding-left: 300px;
+  width: 100%;
+  height:100vh;
+  background-color: #fff;
+  color: #044480;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  background: 
+  -webkit-linear-gradient(#873cff, #873cff00 0%),
+ -webkit-linear-gradient(-30deg, #ffffffe6 65%, #1e5d99 0%);
+}
+
+
+.busqueda_turnos {
+  font-size: 26px;
+}
+
+.proximos_turnos{
+  font-size: 20px;
+}
+
+/* Calendario */
+#datepicker {
+  margin-top: 5px;
+  margin-left: 40px;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.flatpickr-calendar {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1px;
+}
+
+.flatpickr-day {
+  border-radius: 20%;
+  font-weight: bold;
+  color: #007bff;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  margin: 2px;
+}
+
+.flatpickr-day.flatpickr-disabled {
+  font-weight: normal;
+  color: #8b8b8b;
+}
+
+.flatpickr-day.flatpickr-disabled:hover {
+  color: inherit;
+  border-radius: 20%;
+  background-color: #dfdfdf;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 20%;
+  font-weight: bold;
+}
+
+.flatpickr-day.today {
+  background-color: #f7d655;
+  color: #000;
+}
+
+.flatpickr-day.today:hover {
+  background-color: #f7d655;
+}
+
+/*Menu de especialidades*/
+
+.especialidades_container {
+  height: 400px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.select_especialista {
+  padding: 0px 6px 0px 6px;
+  width: 200px;
+  height: 40px;
+  font-size: 18px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none; 
+  cursor: pointer;
+  transition: border-color 0.3s; 
+}
+
+.select_especialista:hover {
+  background-color: #f0f0f0; 
+}
+
+.select_especialista:focus {
+  background-color: #fff;
+}
+
+.titulo_especialidad {
+  color: #204a72;
+  font-size: 18px;
+  padding-bottom: 16px;
+}
+
+/*Formulario*/
+
+.form_container {
+  margin-top: 40px;
+}
+#form_select {
+  padding: 10px;
+  gap: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+#btn-submit {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin-left: 10px;
+  margin-top: 26px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#btn-submit:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+#btn-submit:active {
+  background-color: #004080;
+  transform: translateY(0);
+}
+
+.especialidad_container {
+  gap: 10px;
+  display: flex;
+}
+
+#profesional_1,
+#profesional_2 {
+  display: none;
+}
+
+#error_select,
+#error_select2 {
+  color: red;
+  position: absolute;
+  display: none;
+}
+
+#error_select3, #error_select4, #error_select5 {
+  color: red;
+  display: none;
+}
+
+.input_container {
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/*Modal*/
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 400px;
+  font-size: 20px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*MIS TURNOS*/
+
+/*Sections*/
+#misturnos-section {
+  color: #044480;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#misturnos-container {
+  width: 700px;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 60px;
+  padding-top: 160px;
+}
+
+.titulo-misturnos {
+  text-align: center;
+}
+
+#historial-container {
+  width: 100%;
+  height: 300px;
+}
+
+/*tabla*/
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  font-size: 20px;
+}
+
+table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+
+#btn-eliminar {
+  background-color: #dc3545; 
+  color: white; 
+  border: none;
+  padding: 8px 16px; 
+  cursor: pointer; 
+  border-radius: 4px; 
+}
+
+#btn-eliminar:hover {
+  background-color: #c82333; 
+}
+
+#btn-eliminar, .btn-modificar{
+  font-size: 16px;
+  margin-left: 20px;
+}
+
+.btn-modificar {
+  background-color: #007bff; 
+  color: white; 
+  border: none; 
+  padding: 8px 12px; 
+  cursor: pointer; 
+  border-radius: 4px; 
+}
+
+.btn-modificar:hover {
+  background-color: #0056b3; 
+}
+
+/*Modal mis turnos*/
+
+#modal-misturnos {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+}
+
+#btn-submit2 {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 26px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 180px;
+}
+
+#btn-submit2:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+#btn-submit2:active {
+  background-color: #004080;
+  transform: translateY(0);
+}
+
+.modal-content2 {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 460px;
+  color: #004080;
+  font-size: 14px;
+}
+
+/* Estilos para el formulario */
+#form_select2 {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo_especialidad2, .input_container2{
+  color: #204a72;
+  padding-bottom: 16px;
+}
+
+
+.especialidad_container2 {
+  margin-bottom: 20px;
+}
+
+.select_especialista2 {
+  padding: 0px 6px 0px 6px;
+  width: 180px;
+  height: 40px;
+  font-size: 18px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none; 
+  cursor: pointer;
+  transition: border-color 0.3s; 
+}
